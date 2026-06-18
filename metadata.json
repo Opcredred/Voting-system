@@ -1,0 +1,6 @@
+{
+  "name": "Secure Electronic Voting System",
+  "description": "A blockchain-powered electronic voting system with transparent ledgers and control unit authorization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

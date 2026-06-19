@@ -24,16 +24,7 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        const email = currentUser.email || '';
-        const isAllowed = email.endsWith('@dcis.edu.in') || email === 'bhandaridhruvin7@gmail.com';
-        
-        if (!isAllowed) {
-          await logOut();
-          setAuthError('Access denied. Please use an authorized email address.');
-          setUser(null);
-        } else {
-          setUser(currentUser);
-        }
+        setUser(currentUser);
       } else {
         setUser(null);
       }

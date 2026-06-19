@@ -16,6 +16,13 @@ interface Campaign {
   name: string;
   captains: {id: string, name: string}[];
   viceCaptains: {id: string, name: string}[];
+  finished?: boolean;
+  results?: {
+    totalVotes: number;
+    captainVotes: Record<string, number>;
+    viceCaptainVotes: Record<string, number>;
+    categoryVotes?: Record<string, { captainVotes: Record<string, number>; viceCaptainVotes: Record<string, number> }>;
+  };
 }
 
 interface BallotState {

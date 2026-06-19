@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { RoleSelect } from './components/RoleSelect';
 import { BallotInterface } from './components/BallotInterface';
 import { ControlUnit } from './components/ControlUnit';
-import { auth, signInWithGoogle, logOut } from './firebase';
+import { auth, googleSignIn as signInWithGoogle, logout as logOut } from './lib/auth';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
 export default function App() {

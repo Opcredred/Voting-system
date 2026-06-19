@@ -8,26 +8,18 @@
   <body>
     <div id="root"></div>
     <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        var errDiv = document.createElement('div');
-        errDiv.style.color = 'red';
-        errDiv.style.padding = '20px';
-        errDiv.style.backgroundColor = '#fee';
-        errDiv.style.position = 'fixed';
-        errDiv.style.top = '0'; errDiv.style.left = '0'; errDiv.style.right = '0'; errDiv.style.zIndex = '9999';
-        errDiv.innerText = 'Error: ' + message + '\n' + (error ? error.stack : '');
-        document.body.appendChild(errDiv);
+      const originalOnError = window.onerror;
+      window.onerror = function(msg, url, line, col, error) {
+        if (msg === 'Script error.') return true;
+        if (originalOnError) return originalOnError.apply(this, arguments);
+        return false;
       };
-      window.addEventListener("unhandledrejection", function(event) {
-        var errDiv = document.createElement('div');
-        errDiv.style.color = 'red';
-        errDiv.style.padding = '20px';
-        errDiv.style.backgroundColor = '#eff';
-        errDiv.style.position = 'fixed';
-        errDiv.style.top = '100px'; errDiv.style.left = '0'; errDiv.style.right = '0'; errDiv.style.zIndex = '9999';
-        errDiv.innerText = 'Unhandled Rejection: ' + event.reason;
-        document.body.appendChild(errDiv);
-      });
+      window.addEventListener('error', function(event) {
+        if (event.message === 'Script error.') {
+          event.stopPropagation();
+          event.preventDefault();
+        }
+      }, true);
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

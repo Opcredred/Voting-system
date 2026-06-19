@@ -8,8 +8,8 @@ interface Results {
 }
 
 export function ResultsVisualizer({ results }: { results: Results }) {
-  const captainData = Object.entries(results.captainVotes).map(([name, value]) => ({ name, value })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
-  const viceCaptainData = Object.entries(results.viceCaptainVotes).map(([name, value]) => ({ name, value })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
+  const captainData = Object.entries(results.captainVotes || {}).map(([name, value]) => ({ name, value })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
+  const viceCaptainData = Object.entries(results.viceCaptainVotes || {}).map(([name, value]) => ({ name, value })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
 
   const maxCaptain = Math.max(...captainData.map(d => d.value), 1);
   const maxVice = Math.max(...viceCaptainData.map(d => d.value), 1);
@@ -65,11 +65,11 @@ export function ResultsVisualizer({ results }: { results: Results }) {
         <div className="mt-8 border-t border-black pt-4">
           <h4 className="font-bold uppercase tracking-wide text-center mb-6">Vote Breakdown by Category</h4>
           <div className="grid gap-6">
-            {Object.entries(results.categoryVotes).map(([category, catVotes]) => {
-                const catCaptainData = Object.entries(catVotes.captainVotes)
+            {Object.entries(results.categoryVotes || {}).map(([category, catVotes]) => {
+                const catCaptainData = Object.entries(catVotes.captainVotes || {})
                   .map(([name, value]) => ({ name, value }))
                   .filter(d => d.value > 0).sort((a, b) => b.value - a.value);
-                const catViceData = Object.entries(catVotes.viceCaptainVotes)
+                const catViceData = Object.entries(catVotes.viceCaptainVotes || {})
                   .map(([name, value]) => ({ name, value }))
                   .filter(d => d.value > 0).sort((a, b) => b.value - a.value);
 
